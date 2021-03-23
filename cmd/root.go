@@ -18,6 +18,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/awslabs/ssosync/internal"
 	"github.com/awslabs/ssosync/internal/config"
@@ -120,27 +121,33 @@ func configLambda() {
 
 	unwrap, err := secrets.GoogleAdminEmail()
 	if err != nil {
-		log.Fatalf(errors.Wrap(err, "cannot read config").Error())
+		log.Fatalf(errors.Wrap(err, "cannot read Google Admin config").Error())
 	}
 	cfg.GoogleAdmin = unwrap
 
 	unwrap, err = secrets.GoogleCredentials()
 	if err != nil {
-		log.Fatalf(errors.Wrap(err, "cannot read config").Error())
+		log.Fatalf(errors.Wrap(err, "cannot read Google Credentials config").Error())
 	}
 	cfg.GoogleCredentials = unwrap
 
 	unwrap, err = secrets.SCIMAccessToken()
 	if err != nil {
-		log.Fatalf(errors.Wrap(err, "cannot read config").Error())
+		log.Fatalf(errors.Wrap(err, "cannot read SCIM Access Token config").Error())
 	}
 	cfg.SCIMAccessToken = unwrap
 
 	unwrap, err = secrets.SCIMEndpointUrl()
 	if err != nil {
-		log.Fatalf(errors.Wrap(err, "cannot read config").Error())
+		log.Fatalf(errors.Wrap(err, "cannot read SCIM Endpoint URL config").Error())
 	}
 	cfg.SCIMEndpoint = unwrap
+
+	unwrap, err = secrets.IncludedGroups()
+	if err != nil {
+		log.Fatalf(errors.Wrap(err, "cannot read Included Groups config").Error())
+	}
+	cfg.IncludeGroups = strings.Split(unwrap, ",")
 }
 
 func addFlags(cmd *cobra.Command, cfg *config.Config) {

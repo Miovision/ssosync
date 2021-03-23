@@ -39,6 +39,11 @@ func (s *Secrets) GoogleCredentials() (string, error) {
 	return s.getSecret("SSOSyncGoogleCredentials")
 }
 
+// IncludedGroups ...
+func (s *Secrets) IncludedGroups() (string, error) {
+	return s.getSecret("SSOSyncIncludedGroups")
+}
+
 func (s *Secrets) getSecret(secretKey string) (string, error) {
 	r, err := s.svc.GetSecretValue(&secretsmanager.GetSecretValueInput{
 		SecretId:     aws.String(secretKey),

@@ -12,6 +12,7 @@ Metadata:
           - GoogleAdminEmail
           - SCIMEndpointUrl
           - SCIMEndpointAccessToken
+          - IncludeGroups
       -
         Label:
           default: "Advanced Configuration"
@@ -60,6 +61,9 @@ Parameters:
   SCIMEndpointAccessToken:
     Type: String
     Description: AWS SSO SCIM AccessToken
+  IncludeGroups:
+    Type: String
+    Description: Groups Included from GSuite
 
 Resources:
   SSOSyncFunction:
@@ -115,3 +119,8 @@ Resources:
       Name: SSOSyncSCIMAccessToken
       SecretString: !Ref SCIMEndpointAccessToken
 
+  AWSIncludeGroups: # This can be moved to custom provider
+    Type: 'AWS::SecretsManager::Secret'
+    Properties:
+      Name: SSOSyncIncludeGroups
+      SecretString: !Ref IncludeGroups
