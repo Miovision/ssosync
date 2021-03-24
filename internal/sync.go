@@ -33,6 +33,7 @@ type SyncGSuite interface {
 	SyncGroups() error
 }
 
+
 // SyncGSuite is an object type that will synchronise real users and groups
 type syncGSuite struct {
 	aws    aws.Client
@@ -303,6 +304,5 @@ func (s *syncGSuite) includeGroup(name string) bool {
 			return true
 		}
 	}
-
 	return false
 }

@@ -16,7 +16,6 @@ package google
 
 import (
 	"context"
-	"fmt"
 
 	"golang.org/x/oauth2/google"
 	admin "google.golang.org/api/admin/directory/v1"
@@ -42,15 +41,11 @@ func NewClient(ctx context.Context, adminEmail string, serviceAccountKey []byte)
 		admin.AdminDirectoryGroupMemberReadonlyScope,
 		admin.AdminDirectoryUserReadonlyScope)
 
-	if adminEmail != "" {
-		config.Subject = adminEmail
-	}else{
-		fmt.Println("There isn't an admin email, why?")
-	}
-
 	if err != nil {
 		return nil, err
 	}
+
+	config.Subject = adminEmail
 
 	ts := config.TokenSource(ctx)
 
