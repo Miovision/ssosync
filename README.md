@@ -1,3 +1,7 @@
+# Miovision Notes
+
+This is a fork of the upstream awslabs/ssosync project with minor changes. See https://confluence.miohq.com/display/PRODOPS/AWS+SSO+Sync for details.
+
 # SSO Sync
 
 ![Github Action](https://github.com/awslabs/ssosync/workflows/main/badge.svg)
